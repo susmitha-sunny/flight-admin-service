@@ -15,7 +15,7 @@ public class AdminService {
 
     public Admin getAdmin(final int i) throws Exception {
         Optional<Admin> admin = adminRepository.getAdmin(i);
-        if(admin.isPresent()) {
+        if (admin.isPresent()) {
             return admin.get();
         }
         throw new Exception("Admin not present");

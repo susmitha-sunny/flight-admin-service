@@ -1,6 +1,3 @@
-/**
- * Package for controllers
- */
 package com.gotravel.flightadminservice.controller;
 
 import com.gotravel.flightadminservice.entity.Admin;
@@ -16,7 +13,7 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping(value = "/testadmin")
-    public Admin execute() throws Exception{
+    public Admin execute() throws Exception {
         int i = 4;
             return adminService.getAdmin(i);
     }
