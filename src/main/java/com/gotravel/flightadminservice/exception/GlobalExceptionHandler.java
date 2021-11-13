@@ -15,8 +15,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorType> handleException(final Exception e) {
-        LOG.error(e.getMessage());
-        return new ResponseEntity<>(new ErrorType(e.getClass().getName(), e.getMessage(), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
+        LOG.error("Exception encountered in admin service - {}", e.getMessage());
+        return new ResponseEntity<>(new ErrorType(e.getClass().getName(), "Exception encountered in admin service - " + e.getMessage(), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
     }
 
 }
