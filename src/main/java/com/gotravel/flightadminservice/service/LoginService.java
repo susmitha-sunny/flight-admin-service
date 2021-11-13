@@ -2,26 +2,25 @@ package com.gotravel.flightadminservice.service;
 
 import com.gotravel.flightadminservice.entity.Admin;
 import com.gotravel.flightadminservice.exception.ValueNotFoundException;
+import com.gotravel.flightadminservice.model.LoginRequest;
 import com.gotravel.flightadminservice.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class AdminService {
+public class LoginService {
 
     @Autowired
     private AdminRepository adminRepository;
 
-    @Cacheable(value = "adminCache", key = "#id")
-    public Admin getAdmin(final int id) throws ValueNotFoundException {
-        Optional<Admin> admin = adminRepository.findById(id);
+    public Admin verifyAdmin(final LoginRequest loginRequest) throws ValueNotFoundException {
+        Optional<Admin> admin = adminRepository.findByUsernameAndPassword(loginRequest.getUsername(),
+                loginRequest.getPassword());
         if (admin.isPresent()) {
             return admin.get();
         }
-        throw new ValueNotFoundException("Admin not found");
-
+        throw new ValueNotFoundException("Wrong credentials. Admin not found.");
     }
 }
