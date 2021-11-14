@@ -27,7 +27,7 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
-    @PostMapping(value = "/flight-admin-service/authenticate")
+    @PostMapping(value = "/authenticate")
     public ResponseEntity<JwtResponse> execute(@RequestBody final JwtRequest authenticationRequest) throws JwtException {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
