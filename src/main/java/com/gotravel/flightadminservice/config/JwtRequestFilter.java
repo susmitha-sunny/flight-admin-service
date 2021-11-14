@@ -7,19 +7,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gotravel.flightadminservice.service.JwtUserDetailsService;
 import com.gotravel.flightadminservice.util.JwtTokenUtil;
+import io.jsonwebtoken.JwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import io.jsonwebtoken.ExpiredJwtException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -32,9 +33,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Override
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
-                                    final FilterChain chain) throws ServletException, IOException {
+                                    final FilterChain chain) throws ServletException, IOException, JwtException {
 
         final String requestTokenHeader = request.getHeader("Authorization");
 
@@ -46,12 +50,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             jwtToken = requestTokenHeader.substring(19);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
-            } catch (IllegalArgumentException e) {
-                LOG.error("Unable to get JWT Token");
-            } catch (ExpiredJwtException e) {
-                LOG.error("JWT Token has expired");
+            } catch (Exception e) {
+                LOG.error("Authorization header is invalid or not found ", e);
+                response.setContentType("application/json");
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
             }
-            //check if Exception needs to be thrown
         } else {
             LOG.warn("JWT Token does not begin with Bearer String");
         }
