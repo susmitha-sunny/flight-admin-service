@@ -13,7 +13,7 @@ public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;
 
-    @PostMapping(value = "/flight-admin-service/addschedule")
+    @PostMapping(value = "/addschedule")
     public Schedule execute(@RequestBody final Schedule schedule) {
             return scheduleService.addSchedule(schedule);
     }

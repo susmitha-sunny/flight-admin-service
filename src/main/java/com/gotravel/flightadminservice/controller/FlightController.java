@@ -13,7 +13,7 @@ public class FlightController {
     @Autowired
     private FlightService flightService;
 
-    @PostMapping(value = "/flight-admin-service/addflight")
+    @PostMapping(value = "/addflight")
     public Flight execute(@RequestBody final Flight flight) {
             return flightService.addFlight(flight);
     }

@@ -11,7 +11,7 @@ public class CouponController {
     @Autowired
     private CouponService couponService;
 
-    @PostMapping(value = "/flight-admin-service/addcoupon")
+    @PostMapping(value = "/addcoupon")
     public Coupon execute(@RequestBody final Coupon coupon) {
             return couponService.addCoupon(coupon);
     }

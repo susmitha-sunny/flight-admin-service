@@ -15,12 +15,12 @@ public class AirlineController {
     @Autowired
     private AirlineService airlineService;
 
-    @PostMapping(value = "/flight-admin-service/addairline")
+    @PostMapping(value = "/addairline")
     public Airline execute(@RequestBody final Airline airline) {
         return airlineService.addAirline(airline);
     }
 
-    @PutMapping(value = "/flight-admin-service/blockairline")
+    @PutMapping(value = "/blockairline")
     public String executeBlock(@RequestBody final Airline airline) throws ValueNotFoundException {
         return airlineService.blockAirline(airline.getAirlineName());
     }
