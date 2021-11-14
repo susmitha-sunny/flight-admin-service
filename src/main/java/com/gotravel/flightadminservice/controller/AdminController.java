@@ -19,8 +19,4 @@ public class AdminController {
             return adminService.getAdmin(id);
     }
 
-    @GetMapping(value = "/testsecurity")
-    public String execute() {
-        return "Testing security";
-    }
 }
