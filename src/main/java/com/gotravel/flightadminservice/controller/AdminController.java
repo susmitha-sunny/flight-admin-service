@@ -1,6 +1,7 @@
 package com.gotravel.flightadminservice.controller;
 
 import com.gotravel.flightadminservice.entity.Admin;
+import com.gotravel.flightadminservice.exception.ValueNotFoundException;
 import com.gotravel.flightadminservice.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,12 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping(value = "/admin/{id}")
-    public Admin execute(@PathVariable("id") final int id) throws Exception {
+    public Admin execute(@PathVariable("id") final int id) throws ValueNotFoundException {
             return adminService.getAdmin(id);
+    }
+
+    @GetMapping(value = "/testsecurity")
+    public String execute() {
+        return "Testing security";
     }
 }

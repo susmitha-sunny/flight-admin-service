@@ -14,7 +14,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @GetMapping(value = "/flight-admin-service/login")
+    @GetMapping(value = "/login")
     public Admin execute(@RequestBody final LoginRequest loginRequest) throws Exception {
             return loginService.verifyAdmin(loginRequest);
     }
