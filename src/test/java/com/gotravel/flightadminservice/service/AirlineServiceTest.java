@@ -23,6 +23,6 @@ public class AirlineServiceTest {
         String response = airlineService.blockAirline(airline);
 
         Assertions.assertFalse(response.isEmpty());
-        Assertions.assertEquals("String", response);
+        Assertions.assertEquals("Airline Qatar Airways is blocked successfully", response);
     }
 }
