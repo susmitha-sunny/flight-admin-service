@@ -1,7 +1,7 @@
 package com.gotravel.flightadminservice.service;
 
+import com.gotravel.flightadminservice.connector.BookingConnector;
 import com.gotravel.flightadminservice.entity.Coupon;
-import com.gotravel.flightadminservice.repository.CouponRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 public class CouponService {
 
     @Autowired
-    private CouponRepository couponRepository;
+    private BookingConnector bookingConnector;
 
     public Coupon addCoupon(final Coupon coupon) {
-        return couponRepository.save(coupon);
+        return bookingConnector.addCoupon(coupon);
     }
 }
