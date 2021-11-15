@@ -3,7 +3,6 @@ package com.gotravel.flightadminservice.controller;
 import com.gotravel.flightadminservice.connector.BookingConnector;
 import com.gotravel.flightadminservice.connector.MockBookingConnector;
 import com.gotravel.flightadminservice.entity.Coupon;
-import com.gotravel.flightadminservice.service.CouponService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -34,9 +33,8 @@ public class CouponControllerTest {
     @Test
     void testSuccess() {
 
-        CouponService service = Mockito.mock(CouponService.class);
-        Mockito.when(service.addCoupon(ArgumentMatchers.any())).thenReturn(coupon);
-
+        BookingConnector bookingConnector = Mockito.mock(BookingConnector.class);
+        Mockito.when(bookingConnector.addCoupon(ArgumentMatchers.any())).thenReturn(coupon);
         CouponController controller = new CouponController();
         Coupon request = new Coupon();
         request.setCode("DISCOUNT");
