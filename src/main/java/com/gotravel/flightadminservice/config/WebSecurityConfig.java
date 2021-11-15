@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //no need of csrf for now
         httpSecurity.csrf().disable()
                 //do not authenticate /authenticate
-                .authorizeRequests().antMatchers("/flight-admin-service/authenticate").permitAll()
+                .authorizeRequests().antMatchers("/authenticate").permitAll()
                 //authenticate all other requests
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
