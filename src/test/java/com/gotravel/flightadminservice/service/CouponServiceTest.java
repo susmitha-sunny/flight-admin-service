@@ -1,30 +1,32 @@
-package com.gotravel.flightadminservice.controller;
+package com.gotravel.flightadminservice.service;
 
+import com.gotravel.flightadminservice.connector.BookingConnector;
+import com.gotravel.flightadminservice.controller.CouponController;
 import com.gotravel.flightadminservice.entity.Coupon;
-import com.gotravel.flightadminservice.service.CouponService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.event.annotation.BeforeTestMethod;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @ExtendWith(MockitoExtension.class)
-public class CouponControllerTest {
+public class CouponServiceTest {
 
     private static Coupon coupon;
 
     @Mock
-    CouponService couponService;
+    BookingConnector bookingConnector;
 
     @InjectMocks
-    CouponController couponController;
+    CouponService couponService;
 
     @BeforeAll
     static void setup() {
@@ -45,7 +47,7 @@ public class CouponControllerTest {
         Coupon request = new Coupon();
         request.setCode("DISCOUNT");
         request.setDiscountPercent(BigDecimal.valueOf(50));
-        Mockito.when(couponService.addCoupon(ArgumentMatchers.any())).thenReturn(coupon);
+        Mockito.when(bookingConnector.addCoupon(ArgumentMatchers.any())).thenReturn(coupon);
 
         //act
         Coupon response = couponService.addCoupon(request);
@@ -63,10 +65,10 @@ public class CouponControllerTest {
         Coupon request = new Coupon();
         request.setCode("DISCOUNT");
         request.setDiscountPercent(BigDecimal.valueOf(50));
-        Mockito.when(couponService.addCoupon(ArgumentMatchers.any())).thenReturn(null);
+        Mockito.when(bookingConnector.addCoupon(ArgumentMatchers.any())).thenReturn(null);
 
         //act
-        Coupon coupon = couponController.execute(request);
+        Coupon coupon = couponService.addCoupon(request);
 
         //assert
         assertNull(coupon);
