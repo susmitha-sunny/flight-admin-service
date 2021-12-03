@@ -5,7 +5,6 @@ import com.gotravel.flightadminservice.model.AirlineStatusType;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Blob;
 
 @Entity
 @Getter
@@ -26,9 +25,6 @@ public class Airline {
 
     @Column(name = "iata_code")
     private String iataCode;
-
-    @Lob
-    private Blob logo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "airline_status")

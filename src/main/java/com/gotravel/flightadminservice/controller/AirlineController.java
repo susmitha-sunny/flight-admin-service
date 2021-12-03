@@ -4,10 +4,9 @@ import com.gotravel.flightadminservice.entity.Airline;
 import com.gotravel.flightadminservice.exception.ValueNotFoundException;
 import com.gotravel.flightadminservice.service.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class AirlineController {
@@ -20,8 +19,21 @@ public class AirlineController {
         return airlineService.addAirline(airline);
     }
 
+    @CrossOrigin
     @PutMapping(value = "/blockairline")
-    public String executeBlock(@RequestBody final Airline airline) throws ValueNotFoundException {
+    public boolean executeBlock(@RequestBody final Airline airline) throws ValueNotFoundException {
         return airlineService.blockAirline(airline.getAirlineName());
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/airline")
+    public List<Airline> execute() {
+        return airlineService.getAirlines();
+    }
+
+    @CrossOrigin
+    @PutMapping(value = "/unblockairline")
+    public boolean executeUnBlock(@RequestBody final Airline airline) throws ValueNotFoundException {
+        return airlineService.unblockAirline(airline.getAirlineName());
     }
 }

@@ -14,6 +14,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.HashMap;
@@ -23,10 +25,26 @@ import java.util.Map;
 @EnableSwagger2
 @EnableCaching
 @EnableEurekaClient
-public class FlightAdminServiceApplication {
+public class FlightAdminServiceApplication implements WebMvcConfigurer {
 
 	public static void main(final String[] args) {
 		SpringApplication.run(FlightAdminServiceApplication.class, args);
+	}
+
+	@Override
+	public void addCorsMappings(final CorsRegistry registry) {
+		registry.addMapping("/**")
+				.allowedOrigins(
+						"*"
+				)
+				.allowedMethods(
+						"GET",
+						"PUT",
+						"POST",
+						"DELETE",
+						"PATCH",
+						"OPTIONS"
+				);
 	}
 
 	@Bean
