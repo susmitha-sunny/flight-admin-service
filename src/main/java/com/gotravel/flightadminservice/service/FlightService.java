@@ -17,6 +17,10 @@ public class FlightService {
         return flightRepository.save(flight);
     }
 
+    public void deleteFlight(final Flight flight) {
+        flightRepository.delete(flight);
+    }
+
     public List<Flight> getFlights() {
         return flightRepository.findAll();
     }
