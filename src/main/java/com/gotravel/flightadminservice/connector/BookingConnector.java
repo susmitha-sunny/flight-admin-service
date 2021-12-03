@@ -28,4 +28,16 @@ public class BookingConnector {
 
         return response.getBody();
     }
+
+    public void cancelreservation(final String airlinName) {
+
+        String url = "http://FLIGHT-BOOKING-SERVICE/cancelreservation";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> request = new HttpEntity<String>(airlinName, headers);
+
+        restTemplate.postForEntity(url, request, String.class);
+    }
 }

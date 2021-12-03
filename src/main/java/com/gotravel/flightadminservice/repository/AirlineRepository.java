@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Repository
 public interface AirlineRepository extends JpaRepository<Airline, Integer> {
 
@@ -15,4 +16,10 @@ public interface AirlineRepository extends JpaRepository<Airline, Integer> {
     @Transactional
     @Query(value = "UPDATE airline a SET a.airline_status = 'INACTIVE' WHERE a.airline_name = ?1", nativeQuery = true)
     int blockAirline(String airlineName);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE airline a SET a.airline_status = 'ACTIVE' WHERE a.airline_name = ?1", nativeQuery = true)
+    int unblockAirline(String airlineName);
+
 }

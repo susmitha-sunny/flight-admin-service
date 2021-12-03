@@ -27,6 +27,7 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
+    @CrossOrigin
     @PostMapping(value = "/authenticate")
     public ResponseEntity<JwtResponse> execute(@RequestBody final JwtRequest authenticationRequest) throws JwtException {
 

@@ -1,5 +1,6 @@
 package com.gotravel.flightadminservice.service;
 
+import com.gotravel.flightadminservice.connector.BookingConnector;
 import com.gotravel.flightadminservice.exception.ValueNotFoundException;
 import com.gotravel.flightadminservice.repository.AirlineRepository;
 import org.junit.jupiter.api.Assertions;
@@ -20,6 +21,9 @@ public class AirlineServiceTest {
     @Mock
     AirlineRepository airlineRepository;
 
+    @Mock
+    BookingConnector bookingConnector;
+
     @InjectMocks
     AirlineService airlineService;
 
@@ -28,10 +32,10 @@ public class AirlineServiceTest {
         String airline = "Qatar Airways";
         Mockito.when(airlineRepository.blockAirline(ArgumentMatchers.any())).thenReturn(1);
 
-        String response = airlineService.blockAirline(airline);
+        boolean response = airlineService.blockAirline(airline);
 
-        Assertions.assertFalse(response.isEmpty());
-        Assertions.assertEquals("Airline Qatar Airways blocked successfully", response);
+        Assertions.assertTrue(response);
+        //Assertions.assertEquals("Airline Qatar Airways blocked successfully", response);
     }
 
     @Test
